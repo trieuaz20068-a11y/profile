@@ -117,6 +117,15 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   .search-form{flex:1 1 100%;padding:0 12px}
   .header-main{padding:12px}
 }
+/* hero slider (below categories) */
+.hero-slider{max-width:1200px;margin:12px auto;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(124,16,57,0.06)}
+.hero-slider .slides{display:flex;transition:transform .6s ease}
+.hero-slider .slide{min-width:100%;height:220px;background-size:cover;background-position:center;flex-shrink:0}
+.hero-slider .slide::after{content:"";display:block;position:relative;height:0}
+.slider-dots{display:flex;gap:8px;justify-content:center;padding:10px;background:transparent}
+.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.6);border:1px solid rgba(122,31,46,0.12);cursor:pointer}
+.slider-dot.active{background:linear-gradient(90deg,#ff9bb9,#ff7b97);box-shadow:0 6px 14px rgba(124,16,57,0.08)}
+@media (max-width:800px){.hero-slider .slide{height:180px}}@media (max-width:420px){.hero-slider .slide{height:140px}}
     </style>
   </head>
 <body>
@@ -125,7 +134,7 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   <header class="site-header">
   <div class="topbar"><a href="HeThongCuaHang.html" style="color:inherit;text-decoration:underline;font-weight:800">HỆ THỐNG CỬA HÀNG</a> &nbsp; • &nbsp; <a href="VePen.html" style="color:inherit;font-weight:800">VỀ PEN</a></div>
     <div class="header-main">
-  <div class="logo"> <img src="umaru.png" alt="logo umaru"><span class="logo-text">PENS</span></div>
+  <div class="logo"> <img src="images/umaru.png" alt="logo umaru"><span class="logo-text">PENS</span></div>
       <form class="search-form" onsubmit="return false;">
         <input id="searchInput" placeholder="Tìm kiếm dụng cụ học tập" />
         <button class="search-btn" title="Tìm">🔍</button>
@@ -196,6 +205,16 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
     </nav>
   </header>
 
+    <!-- HERO SLIDER -->
+    <div class="hero-slider" aria-label="Banner sản phẩm">
+      <div class="slides">
+        <div class="slide" style="background-image:url('images/vip.jpg');" role="img" aria-label="Balo trẻ em"></div>
+        <div class="slide" style="background-image:url('images/quatang.webp');" role="img" aria-label="Bút gel màu"></div>
+        <div class="slide" style="background-image:url('images/s200.jpeg');" role="img" aria-label="Tập 200 trang"></div>
+      </div>
+      <div class="slider-dots" aria-hidden="false"></div>
+    </div>
+
   <main class="container">
     <aside class="filters">
       <h3>Loại</h3>
@@ -252,14 +271,14 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   // inlined data.js
   // product data (images in images/ folder)
   const products = [
-  {id:1, title:'Bút gel màu 0.5', price:12000, cat:'pen', img:'butgelmau0.5.jpeg', desc:'Bút gel êm, mực lên đều, thích hợp viết nhanh.'},
-  {id:2, title:'Bút bi xịn', price:8000, cat:'pen', img:'bbx.jpg', desc:'Bút bi siêu bền, viết mượt, mẫu mã đẹp.'},
-  {id:3, title:'Tập 200 trang', price:18000, cat:'notebook', img:'s200.jpeg', desc:'Tập 200 trang, giấy trắng, bìa cứng.'},
-  {id:4, title:'Tập kẻ ngang', price:15000, cat:'notebook', img:'tkn.jpeg', desc:'Tập kẻ ngang A4, phù hợp học sinh.'},
-    {id:5, title:'Balo trẻ em', price:250000, cat:'bag', img:'balo.webp', desc:'Balo nhẹ, nhiều ngăn, họa tiết dễ thương.'},
-  {id:6, title:'Hộp bút vẽ', price:45000, cat:'pen', img:'hopbutve.jpeg', desc:'Hộp bút đủ màu, chất lượng tốt cho học vẽ.'},
-  {id:7, title:'Sổ tay A5', price:22000, cat:'notebook', img:'sta5.jpg', desc:'Sổ tay tiện dụng A5, giấy mịn.'},
-  {id:8, title:'Túi đựng bút', price:12000, cat:'bag', img:'tdb.png', desc:'Túi đựng bút nhỏ gọn, dễ mang theo.'}
+  {id:1, title:'Bút gel màu 0.5', price:12000, cat:'pen', img:'images/butgelmau0.5.jpeg', desc:'Bút gel êm, mực lên đều, thích hợp viết nhanh.'},
+  {id:2, title:'Bút bi xịn', price:8000, cat:'pen', img:'images/bbx.jpg', desc:'Bút bi siêu bền, viết mượt, mẫu mã đẹp.'},
+  {id:3, title:'Tập 200 trang', price:18000, cat:'notebook', img:'images/s200.jpeg', desc:'Tập 200 trang, giấy trắng, bìa cứng.'},
+  {id:4, title:'Tập kẻ ngang', price:15000, cat:'notebook', img:'images/tkn.jpeg', desc:'Tập kẻ ngang A4, phù hợp học sinh.'},
+    {id:5, title:'Balo trẻ em', price:250000, cat:'bag', img:'images/balo.webp', desc:'Balo nhẹ, nhiều ngăn, họa tiết dễ thương.'},
+  {id:6, title:'Hộp bút vẽ', price:45000, cat:'pen', img:'images/hopbutve.jpeg', desc:'Hộp bút đủ màu, chất lượng tốt cho học vẽ.'},
+  {id:7, title:'Sổ tay A5', price:22000, cat:'notebook', img:'images/sta5.jpg', desc:'Sổ tay tiện dụng A5, giấy mịn.'},
+  {id:8, title:'Túi đựng bút', price:12000, cat:'bag', img:'images/tdb.png', desc:'Túi đựng bút nhỏ gọn, dễ mang theo.'}
   ]
   </script>
   <script>
@@ -462,6 +481,49 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
     }
   })
   </script>
-</body>
+  <script>
+  // Simple hero slider: auto-advance with pause-on-hover and dots
+  (function(){
+    const slider = document.querySelector('.hero-slider')
+    if(!slider) return
+    const slidesWrap = slider.querySelector('.slides')
+    const slides = Array.from(slidesWrap.children)
+    const dotsWrap = slider.querySelector('.slider-dots')
+    let idx = 0, timer = null, interval = 3500
 
+    // create dots
+    slides.forEach((s,i)=>{
+      const d = document.createElement('button')
+      d.className = 'slider-dot'
+      d.setAttribute('aria-label','Slide ' + (i+1))
+      d.addEventListener('click', ()=> goTo(i))
+      dotsWrap.appendChild(d)
+    })
+
+    const dots = Array.from(dotsWrap.children)
+
+    function update(){
+      slidesWrap.style.transform = `translateX(${ -idx * 100 }%)`
+      dots.forEach((d,i)=> d.classList.toggle('active', i===idx))
+    }
+
+    function next(){ idx = (idx + 1) % slides.length; update() }
+    function goTo(n){ idx = (n % slides.length + slides.length) % slides.length; update(); restart() }
+
+    function start(){ if(timer) clearInterval(timer); timer = setInterval(next, interval) }
+    function stop(){ if(timer) clearInterval(timer); timer = null }
+    function restart(){ stop(); start() }
+
+    // start
+    update(); start()
+
+    // pause on hover
+    slider.addEventListener('mouseenter', stop)
+    slider.addEventListener('mouseleave', start)
+
+    // make slider responsive to visibility (pause when tab hidden)
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stop(); else start() })
+  })()
+  </script>
+</body>
 </html>
