@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700;900&display=swap&subset=vietnamese" rel="stylesheet">
   <!-- Serif display font for category labels (targets elements with aria-expanded) -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <title>Pen&Paper — Dụng cụ học tập</title>
+    <title>Pens — Dụng cụ học tập</title>
     <style>
 /* Basic reset and theme */
 *{box-sizing:border-box}
@@ -89,13 +89,73 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
 .btn.secondary{background:#f0f0f0}
 .btn.primary{background:#ff7b97;color:#fff}
 
-/* cart modal */
-.cart-modal{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center}
-.cart-panel{background:#fff;padding:18px;border-radius:8px;min-width:320px;max-width:420px;position:relative}
+/* modals (cart, login, register) */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-panel{background:#fff;padding:18px;border-radius:12px;min-width:320px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+.modal .close{position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:18px;cursor:pointer;padding:4px;line-height:1}
+/* cart specific */
+.cart-modal{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:100}
+.cart-panel{background:#fff;padding:18px;border-radius:12px;min-width:320px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,0.1);max-width:420px}
 .cart-list{list-style:none;padding:0;margin:0;max-height:300px;overflow:auto}
 .cart-list li{display:flex;gap:8px;padding:8px 0;border-bottom:1px dashed #eee}
 .cart-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-.close{position:absolute;right:8px;top:8px;border:0;background:transparent;font-size:18px;cursor:pointer}
+/* auth modals */
+.auth-modal{position:fixed;inset:0;background:rgba(255,182,193,0.2);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100}
+.auth-panel{background:linear-gradient(180deg,#fff,#fff5f8);padding:28px;border-radius:16px;min-width:320px;position:relative;box-shadow:0 20px 40px rgba(240,80,128,0.15);width:420px}
+.auth-panel::before{content:"";position:absolute;inset:1px;background:linear-gradient(180deg,rgba(255,255,255,0.8),rgba(255,255,255,0.5));border-radius:15px;z-index:-1}
+.auth-panel h3{margin:0 0 24px;color:#7a1f2e;font-size:24px;text-align:center;font-weight:800;letter-spacing:-0.5px}
+.auth-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:flex;flex-direction:column;gap:8px}
+.form-row label{font-size:14px;color:#7a1f2e;font-weight:600}
+.form-row input{padding:12px 16px;border-radius:12px;border:2px solid rgba(240,80,128,0.15);font-size:15px;background:rgba(255,255,255,0.9);transition:all 0.2s ease}
+.form-row input:hover{border-color:rgba(240,80,128,0.3)}
+.form-row input:focus{outline:none;border-color:#ff8aa3;background:#fff;box-shadow:0 6px 20px rgba(255,105,140,0.12)}
+.form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.form-actions .btn.primary{background:linear-gradient(45deg,#ff85c0,#ff7b97);color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:all 0.2s ease}
+.form-actions .btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,105,140,0.25)}
+.form-link{color:#ff7b97;text-decoration:none;font-size:14px;font-weight:600;transition:color 0.2s ease}
+.form-link:hover{color:#ff85c0}
+.form-note{font-size:14px;color:#666;text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid rgba(240,80,128,0.1)}
+.form-note a{color:#ff7b97;text-decoration:none;font-weight:600;transition:color 0.2s ease}
+.form-note a:hover{color:#ff85c0}
+.auth-panel .close{position:absolute;right:16px;top:16px;width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.9);color:#7a1f2e;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;box-shadow:0 2px 8px rgba(240,80,128,0.1)}
+.auth-panel .close:hover{background:#fff;transform:rotate(90deg);box-shadow:0 4px 12px rgba(240,80,128,0.15)}
+/* allow register panel to scroll when we force a height */
+.auth-panel.register-panel{overflow:auto}
+/* registration form specific */
+.register-panel{max-width:720px;width:88%;padding:12px}
+.register-panel h4{color:#7a1f2e;font-size:16px;margin:4px 0 6px;padding-bottom:0}
+.register-card{display:flex;gap:14px;align-items:stretch}
+.reg-visual{flex:0 0 140px;background:linear-gradient(180deg,#fff5f8,#fff0f4);border-radius:10px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),0 6px 18px rgba(240,80,128,0.05)}
+.reg-visual svg{width:72px;height:72px;display:block;margin-bottom:10px}
+.reg-visual h4{margin:0 0 6px;font-size:16px;color:#7a1f2e}
+.reg-visual p{margin:0;color:#7a1f2e;opacity:0.95;text-align:center;font-size:13px}
+.reg-body{flex:1}
+.register-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.register-grid .full{grid-column:1/-1}
+.date-inline{display:flex;gap:8px;align-items:center}
+.date-inline select, .date-inline input{padding:10px;border-radius:10px;border:1px solid rgba(240,80,128,0.12);background:rgba(255,255,255,0.98);font-size:14px;transition:all 0.14s ease}
+.date-inline select:hover, .date-inline input:hover{border-color:rgba(240,80,128,0.24)}
+.date-inline select:focus, .date-inline input:focus{outline:none;border-color:#ff8aa3;background:#fff;box-shadow:0 6px 18px rgba(255,105,140,0.06)}
+.gender{display:flex;gap:12px;align-items:center;padding:6px 0}
+.gender label{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;color:#444}
+.gender input[type="radio"]{appearance:none;width:16px;height:16px;border:2px solid rgba(240,80,128,0.16);border-radius:50%;margin:0;position:relative;cursor:pointer}
+.gender input[type="radio"]:checked{border-color:#ff7b97;background:#fff}
+.gender input[type="radio"]:checked::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:#ff7b97}
+.gender input[type="radio"]:hover{border-color:rgba(240,80,128,0.32)}
+.btn.ghost{background:rgba(255,255,255,0.98);border:1px solid rgba(240,80,128,0.12);color:#7a1f2e;padding:10px 18px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;transition:all 0.14s ease}
+.btn.ghost:hover{background:#fff;border-color:rgba(240,80,128,0.24);transform:translateY(-2px)}
+@media (max-width:900px){
+  .reg-visual{flex:0 0 120px}
+}
+@media (max-width:700px){
+    .register-grid{grid-template-columns:1fr}
+    .register-panel{padding:12px}
+    .date-inline{flex-wrap:wrap}
+    .date-inline select, .date-inline input{flex:1}
+    .register-card{flex-direction:column}
+    .reg-visual{width:100%;flex:0 0 auto}
+}
 
 /* quickview */
 .quickview{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:80}
@@ -120,21 +180,45 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
 /* hero slider (below categories) */
 .hero-slider{max-width:1200px;margin:12px auto;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(124,16,57,0.06)}
 .hero-slider .slides{display:flex;transition:transform .6s ease}
-.hero-slider .slide{min-width:100%;height:220px;background-size:cover;background-position:center;flex-shrink:0}
+.hero-slider .slide{min-width:100%;height:340px;background-size:cover;background-position:center;flex-shrink:0}
 .hero-slider .slide::after{content:"";display:block;position:relative;height:0}
 .slider-dots{display:flex;gap:8px;justify-content:center;padding:10px;background:transparent}
 .slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.6);border:1px solid rgba(122,31,46,0.12);cursor:pointer}
 .slider-dot.active{background:linear-gradient(90deg,#ff9bb9,#ff7b97);box-shadow:0 6px 14px rgba(124,16,57,0.08)}
 @media (max-width:800px){.hero-slider .slide{height:180px}}@media (max-width:420px){.hero-slider .slide{height:140px}}
+
+/* footer styles */
+.site-footer{background:linear-gradient(180deg,#fff5f7,#ffeef4);padding:36px 12px;color:#4b2230;border-top:1px solid rgba(124,16,57,0.06)}
+.footer-container{max-width:1200px;margin:0 auto;display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
+.footer-col{flex:1;min-width:200px}
+.footer-brand{display:flex;align-items:center;gap:12px}
+.footer-brand img{height:46px;border-radius:8px}
+.footer-links{list-style:none;padding:0;margin:8px 0}
+.footer-links li{margin:6px 0}
+.footer-links a{color:#7a1f2e;text-decoration:none}
+.footer-links a:hover{color:#ff6f8a}
+.newsletter{background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(240,80,128,0.08);max-width:380px}
+.newsletter input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(240,80,128,0.12);margin-bottom:8px}
+.newsletter button{background:linear-gradient(90deg,#ff9bb9,#ff7b97);color:#fff;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
+.footer-bottom{width:100%;border-top:1px solid rgba(124,16,57,0.04);margin-top:20px;padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;color:#7a1f2e;font-size:14px}
+.socials{display:flex;gap:8px;margin-top:8px}
+.socials a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:linear-gradient(180deg,#fff,#ffeef4);border:1px solid rgba(240,80,128,0.08);color:#7a1f2e;text-decoration:none;font-weight:700}
+.payment-icons{display:flex;gap:8px;align-items:center}
+
+@media (max-width:700px){
+  .footer-container{flex-direction:column;gap:18px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+}
+
     </style>
   </head>
 <body>
   </div>
   
   <header class="site-header">
-  <div class="topbar"><a href="HeThongCuaHang.html" style="color:inherit;text-decoration:underline;font-weight:800">HỆ THỐNG CỬA HÀNG</a> &nbsp; • &nbsp; <a href="VePen.html" style="color:inherit;font-weight:800">VỀ PEN</a></div>
+  <div class="topbar"><a href="HeThongCuaHang.html" style="color:inherit;text-decoration:underline;font-weight:800">HỆ THỐNG CỬA HÀNG</a> &nbsp; • &nbsp; <a href="VePen.html" style="color:inherit;font-weight:800">VỀ PENS</a></div>
     <div class="header-main">
-  <div class="logo"> <img src="umaru.png" alt="logo umaru"><span class="logo-text">PENS</span></div>
+  <div class="logo"> <img src="images/umaru.png" alt="logo umaru"><span class="logo-text">PENS</span></div>
       <form class="search-form" onsubmit="return false;">
         <input id="searchInput" placeholder="Tìm kiếm dụng cụ học tập" />
         <button class="search-btn" title="Tìm">🔍</button>
@@ -142,9 +226,9 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
         <div class="header-actions">
         <button id="cartBtn" class="cart-btn" aria-label="Giỏ hàng">🛒 <span id="cartCount">0</span></button>
         <div class="auth-inline">
-          <a href="http://127.0.0.1:5500/b%C3%A0i%20cu%E1%BB%91i%20m%C3%B4n/Dangnhap.html">Đăng nhập</a>
+          <a href="#" id="loginBtn">Đăng nhập</a>
           <span>|</span>
-          <a href="http://127.0.0.1:5500/b%C3%A0i%20cu%E1%BB%91i%20m%C3%B4n/Dangky.html">Đăng ký</a>
+          <a href="#" id="registerBtn">Đăng ký</a>
         </div>
       </div>
     </div>
@@ -208,9 +292,9 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
     <!-- HERO SLIDER -->
     <div class="hero-slider" aria-label="Banner sản phẩm">
       <div class="slides">
-        <div class="slide" style="background-image:url('vip.jpg');" role="img" aria-label="Balo trẻ em"></div>
-        <div class="slide" style="background-image:url('quatang.webp');" role="img" aria-label="Bút gel màu"></div>
-        <div class="slide" style="background-image:url('s200.jpeg');" role="img" aria-label="Tập 200 trang"></div>
+        <div class="slide" style="background-image:url('images/vip.jpg');" role="img" aria-label="Balo trẻ em"></div>
+        <div class="slide" style="background-image:url('images/quatang.webp');" role="img" aria-label="Bút gel màu"></div>
+        <div class="slide" style="background-image:url('images/s200.jpeg');" role="img" aria-label="Tập 200 trang"></div>
       </div>
       <div class="slider-dots" aria-hidden="false"></div>
     </div>
@@ -260,25 +344,207 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
       </div>
     </div>
   </div>
+  <!-- login modal -->
+  <div id="loginModal" class="auth-modal" aria-hidden="true">
+    <div class="auth-panel">
+      <h3>Đăng nhập</h3>
+      <form id="loginForm" class="auth-form">
+        <div class="form-row">
+          <label for="login_username">Tên đăng nhập</label>
+          <input id="login_username" name="username" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="login_password">Mật khẩu</label>
+          <input id="login_password" name="password" type="password" required>
+        </div>
+        <div class="form-actions">
+          <a href="#" class="form-link">Quên mật khẩu?</a>
+          <button type="submit" class="btn primary">Đăng nhập</button>
+        </div>
+        <div class="form-note">
+          Chưa có tài khoản? <a href="#" id="showRegister">Đăng ký</a>
+        </div>
+      </form>
+      <button class="close" id="closeLogin">✕</button>
+    </div>
+  </div>
+
+  <!-- register modal -->
+  <div id="registerModal" class="auth-modal" aria-hidden="true">
+    <div class="auth-panel register-panel">
+      <h3>Đăng ký thành viên</h3>
+      <form id="registerForm" class="auth-form">
+        <h4>Thông tin cá nhân</h4>
+        <div class="register-grid">
+          <div class="form-row full">
+            <label for="reg_fullname">Họ và tên</label>
+            <input id="reg_fullname" name="fullname" type="text" required placeholder="Nhập họ và tên">
+          </div>
+          
+          <div class="form-row">
+            <label for="reg_birthday">Ngày sinh</label>
+            <div class="date-inline">
+              <select id="reg_day" name="day" style="padding:10px;border-radius:8px;border:1px solid rgba(240,80,128,0.12)"></select>
+              <select id="reg_month" name="month" style="padding:10px;border-radius:8px;border:1px solid rgba(240,80,128,0.12)"></select>
+              <input id="reg_year" name="year" type="text" placeholder="YYYY" style="width:88px">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Giới tính</label>
+            <div class="gender">
+              <label><input type="radio" name="gender" value="Nam" checked> Nam</label>
+              <label><input type="radio" name="gender" value="Nu"> Nữ</label>
+              <label><input type="radio" name="gender" value="Khac"> Khác</label>
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <label for="reg_address">Địa chỉ</label>
+            <input id="reg_address" name="address" type="text">
+          </div>
+
+          <div class="form-row">
+            <label for="reg_phone">Điện thoại</label>
+            <input id="reg_phone" name="phone" type="text" placeholder="09xxxxxxxx">
+          </div>
+
+          <div class="form-row">
+            <label for="reg_email">Email</label>
+            <input id="reg_email" name="email" type="email" required placeholder="name@example.com">
+          </div>
+        </div>
+
+        <h4>Thông tin đăng nhập</h4>
+        <div class="register-grid">
+          <div class="form-row full">
+            <label for="reg_username">Tên đăng nhập</label>
+            <input id="reg_username" name="username" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="reg_password">Mật khẩu</label>
+            <input id="reg_password" name="password" type="password" required>
+          </div>
+          <div class="form-row">
+            <label for="reg_confirm_password">Nhập lại mật khẩu</label>
+            <input id="reg_confirm_password" name="confirm_password" type="password" required>
+          </div>
+        </div>
+
+        <div class="form-actions" style="justify-content:center;gap:12px;margin-top:20px">
+          <button type="submit" class="btn primary">Đăng ký</button>
+          <button type="reset" class="btn ghost">Hủy</button>
+        </div>
+        <div class="form-note">
+          Đã có tài khoản? <a href="#" id="showLogin">Đăng nhập</a>
+        </div>
+      </form>
+      <button class="close" id="closeRegister">✕</button>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="footer-container">
-      <p>© 2025 Pen&Paper — Cửa hàng dụng cụ học tập.
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="images/umaru.png" alt="PENS logo">
+          <div>
+            <strong style="font-size:18px">Pens</strong>
+            <div style="color:#7a1f2e;opacity:0.9">Dụng cụ học tập — Tận tâm, Giá tốt</div>
+          </div>
+        </div>
+        <p style="margin-top:12px;color:#555;max-width:320px">Chúng tôi cung cấp bút, tập vở, balo và phụ kiện chất lượng với giao hàng nhanh. Nhận mã giảm giá và tin khuyến mãi khi đăng ký.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="margin:0 0 8px;color:#7a1f2e">Liên kết</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="HeThongCuaHang.html">Hệ thống cửa hàng</a></li>
+          <li><a href="VePen.html">Về Pen</a></li>
+          <li><a href="product.html">Sản phẩm</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 style="margin:0 0 8px;color:#7a1f2e">Theo dõi &amp; Đăng ký</h4>
+        <div class="newsletter">
+          <input id="newsletterEmail" placeholder="Nhập email của bạn" />
+          <div style="display:flex;gap:8px">
+            <button id="newsletterBtn">Đăng ký</button>
+            <button class="btn ghost" onclick="window.location.href='Dangky.html'">Tạo tài khoản</button>
+          </div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="socials">
+            <a href="https://www.facebook.com/profile.php?id=61551949883685" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.06" />
+                <path d="M15 8.5h-1.2c-0.6 0-0.8 0.3-0.8 0.8V10h2l-0.3 2h-1.7v6h-2.1v-6H9.8v-2h1.2v-1.2c0-1 0.6-2.3 2.3-2.3h1.7v2z" fill="currentColor" />
+              </svg>
+            </a>
+            <a href="#" title="Instagram" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" fill="currentColor" opacity="0.04" />
+                <path d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm0 7.8a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" fill="currentColor" />
+                <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" />
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@dungcuhtpens" title="Tiktok" aria-label="Tiktok" target="_blank" rel="noopener noreferrer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="1" y="1" width="22" height="22" rx="4" fill="currentColor" opacity="0.04" />
+                <path d="M14.5 6.5v6.2a3.3 3.3 0 1 1-1.6-2.8V8.4s-1.6 0-2.8 0v-1.9c1.6 0 4.4 0 4.4-4.4h1.9c0 0 .1 3.8 3.1 5.1v1.2c-2.8-.1-4.9-1.1-4.9-1.1z" fill="currentColor" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2025 Pens — Cửa hàng dụng cụ học tập. Bản quyền thuộc về Pens.</div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="payment-icons">
+          <img src="images/visa.jpg" alt="Visa" style="height:22px"/>
+          <img src="images/mtc.webp" alt="Mastercard" style="height:22px"/>
+          <img src="images/cod.webp" alt="COD" style="height:22px"/>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <script>
+    // Newsletter signup handler (client-side demo)
+    (function(){
+      const btn = document.getElementById('newsletterBtn')
+      if(!btn) return
+      btn.addEventListener('click', ()=>{
+        const input = document.getElementById('newsletterEmail')
+        const email = input.value.trim()
+        if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+          alert('Vui lòng nhập email hợp lệ')
+          return
+        }
+        // Demo behaviour: store a simple flag and show a thank-you message
+        try{ localStorage.setItem('newsletter', JSON.stringify({email: email, ts: Date.now()})) }catch(e){}
+        input.value = ''
+        alert('Cảm ơn! Email đã được ghi nhận — chúng tôi sẽ gửi khuyến mãi sớm.')
+      })
+    })()
+  </script>
 
   <script>
   // inlined data.js
   // product data (images in images/ folder)
   const products = [
-  {id:1, title:'Bút gel màu 0.5', price:12000, cat:'pen', img:'butgelmau0.5.jpeg', desc:'Bút gel êm, mực lên đều, thích hợp viết nhanh.'},
-  {id:2, title:'Bút bi xịn', price:8000, cat:'pen', img:'bbx.jpg', desc:'Bút bi siêu bền, viết mượt, mẫu mã đẹp.'},
-  {id:3, title:'Tập 200 trang', price:18000, cat:'notebook', img:'s200.jpeg', desc:'Tập 200 trang, giấy trắng, bìa cứng.'},
-  {id:4, title:'Tập kẻ ngang', price:15000, cat:'notebook', img:'tkn.jpeg', desc:'Tập kẻ ngang A4, phù hợp học sinh.'},
-    {id:5, title:'Balo trẻ em', price:250000, cat:'bag', img:'balo.webp', desc:'Balo nhẹ, nhiều ngăn, họa tiết dễ thương.'},
-  {id:6, title:'Hộp bút vẽ', price:45000, cat:'pen', img:'hopbutve.jpeg', desc:'Hộp bút đủ màu, chất lượng tốt cho học vẽ.'},
-  {id:7, title:'Sổ tay A5', price:22000, cat:'notebook', img:'sta5.jpg', desc:'Sổ tay tiện dụng A5, giấy mịn.'},
-  {id:8, title:'Túi đựng bút', price:12000, cat:'bag', img:'tdb.png', desc:'Túi đựng bút nhỏ gọn, dễ mang theo.'}
+  {id:1, title:'Bút gel màu 0.5', price:12000, cat:'pen', img:'images/butgelmau0.5.jpeg', desc:'Bút gel êm, mực lên đều, thích hợp viết nhanh.'},
+  {id:2, title:'Bút bi xịn', price:8000, cat:'pen', img:'images/bbx.jpg', desc:'Bút bi siêu bền, viết mượt, mẫu mã đẹp.'},
+  {id:3, title:'Tập 200 trang', price:18000, cat:'notebook', img:'images/s200.jpeg', desc:'Tập 200 trang, giấy trắng, bìa cứng.'},
+  {id:4, title:'Tập kẻ ngang', price:15000, cat:'notebook', img:'images/tkn.jpeg', desc:'Tập kẻ ngang A4, phù hợp học sinh.'},
+    {id:5, title:'Balo trẻ em', price:250000, cat:'bag', img:'images/balo.webp', desc:'Balo nhẹ, nhiều ngăn, họa tiết dễ thương.'},
+  {id:6, title:'Hộp bút vẽ', price:45000, cat:'pen', img:'images/hopbutve.jpeg', desc:'Hộp bút đủ màu, chất lượng tốt cho học vẽ.'},
+  {id:7, title:'Sổ tay A5', price:22000, cat:'notebook', img:'images/sta5.jpg', desc:'Sổ tay tiện dụng A5, giấy mịn.'},
+  {id:8, title:'Túi đựng bút', price:12000, cat:'bag', img:'images/tdb.png', desc:'Túi đựng bút nhỏ gọn, dễ mang theo.'}
   ]
   </script>
   <script>
@@ -287,11 +553,57 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
     const nav = document.getElementById('mainNav')
     if(!nav) return
     const items = Array.from(nav.querySelectorAll('.nav-item'))
+    
+    // Helper function to filter products based on category
+    function filterByCategory(category) {
+      let filterValue = 'all'
+      switch(category) {
+        case 'Bút gel':
+        case 'Bút bi':
+        case 'Bút chì':
+        case 'Hộp bút vẽ':
+          filterValue = 'pen'
+          break
+        case 'Tập 100 trang':
+        case 'Tập 200 trang':
+        case 'Sổ tay':
+          filterValue = 'notebook'
+          break
+        case 'Balo trẻ em':
+        case 'Túi đựng bút':
+        case 'Túi vải':
+          filterValue = 'bag'
+          break
+      }
+      renderProducts(filterValue)
+      // Update active state of filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-cat') === filterValue)
+      })
+    }
 
     items.forEach(it=>{
       const btn = it.querySelector('.nav-btn')
       const submenu = it.querySelector('.submenu')
       if(!btn || !submenu) return
+      
+      // Add click handlers for submenu items
+      submenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault()
+          const category = e.target.textContent
+          filterByCategory(category)
+          // Close menu after selection
+          items.forEach(i => { 
+            i.classList.remove('open')
+            const b = i.querySelector('.nav-btn')
+            if(b) b.setAttribute('aria-expanded','false')
+            const s = i.querySelector('.submenu')
+            if(s) s.setAttribute('aria-hidden','true')
+          })
+        })
+      })
+
       btn.addEventListener('click', (e)=>{
         const isOpen = it.classList.contains('open')
         // close all
@@ -300,6 +612,14 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
           it.classList.add('open')
           btn.setAttribute('aria-expanded','true')
           submenu.setAttribute('aria-hidden','false')
+        }
+        // If "TẤT CẢ" button is clicked, show all products
+        if(btn.textContent.trim() === 'TẤT CẢ') {
+          renderProducts('all')
+          // Update active state of filter buttons
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-cat') === 'all')
+          })
         }
         e.stopPropagation()
       })
@@ -316,6 +636,119 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   </script>
 
   <script>
+  // Auth modals handling
+  const loginModal = document.getElementById('loginModal')
+  const registerModal = document.getElementById('registerModal')
+  const loginBtn = document.getElementById('loginBtn')
+  const registerBtn = document.getElementById('registerBtn')
+  const closeLogin = document.getElementById('closeLogin')
+  const closeRegister = document.getElementById('closeRegister')
+  const showRegister = document.getElementById('showRegister')
+  const showLogin = document.getElementById('showLogin')
+
+  // Initialize birthday selects
+  const daySelect = document.getElementById('reg_day')
+  const monthSelect = document.getElementById('reg_month')
+  for(let i=1; i<=31; i++) daySelect.add(new Option(String(i).padStart(2,'0'), String(i).padStart(2,'0')))
+  for(let i=1; i<=12; i++) monthSelect.add(new Option(String(i).padStart(2,'0'), String(i).padStart(2,'0')))
+
+  function showModal(modal) {
+    modal.style.display = 'flex'
+    modal.setAttribute('aria-hidden', 'false')
+  }
+
+  function hideModal(modal) {
+    modal.style.display = 'none'
+    modal.setAttribute('aria-hidden', 'true')
+  }
+
+  // Adjust register panel height to match its width (square) when opened
+  const registerPanelElement = document.querySelector('#registerModal .auth-panel')
+  function adjustRegisterHeight(){
+    if(!registerPanelElement) return
+    // compute width available for the panel (clamped to viewport)
+    const rect = registerPanelElement.getBoundingClientRect()
+    const computedWidth = rect.width
+    // set height equal to width but do not exceed viewport - 48px
+    const maxH = Math.max(200, window.innerHeight - 48)
+    const newH = Math.min(computedWidth, maxH)
+    registerPanelElement.style.height = newH + 'px'
+    // ensure inner content can scroll if it overflows
+    registerPanelElement.style.overflowY = 'auto'
+  }
+
+  // hook into show/hide to apply the square height specifically for register modal
+  const originalShowModal = showModal
+  const originalHideModal = hideModal
+  showModal = function(modal){
+    originalShowModal(modal)
+    if(modal === registerModal){
+      // small timeout to let layout settle before measuring
+      setTimeout(adjustRegisterHeight, 40)
+    }
+  }
+  hideModal = function(modal){
+    if(modal === registerModal && registerPanelElement) {
+      // clear forced height and overflow when hiding
+      registerPanelElement.style.height = ''
+      registerPanelElement.style.overflowY = ''
+    }
+    originalHideModal(modal)
+  }
+
+  // recompute when visible and window resized
+  window.addEventListener('resize', ()=>{ if(registerModal && registerModal.style.display==='flex') adjustRegisterHeight() })
+
+  // Toggle modals
+  loginBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    showModal(loginModal)
+  })
+
+  registerBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    showModal(registerModal)
+  })
+
+  closeLogin.addEventListener('click', () => hideModal(loginModal))
+  closeRegister.addEventListener('click', () => hideModal(registerModal))
+
+  // Switch between login/register
+  showRegister.addEventListener('click', (e) => {
+    e.preventDefault()
+    hideModal(loginModal)
+    showModal(registerModal)
+  })
+
+  showLogin.addEventListener('click', (e) => {
+    e.preventDefault()
+    hideModal(registerModal)
+    showModal(loginModal)
+  })
+
+  // Close modals on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target === loginModal) hideModal(loginModal)
+    if (e.target === registerModal) hideModal(registerModal)
+  })
+
+  // Handle form submissions
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const data = new FormData(e.target)
+    console.log('Login:', Object.fromEntries(data))
+    // TODO: Add actual login logic
+    hideModal(loginModal)
+  })
+
+  document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const data = new FormData(e.target)
+    console.log('Register:', Object.fromEntries(data))
+    // TODO: Add actual registration logic
+    hideModal(registerModal)
+  })
+
   // inlined script.js (depends on products variable above)
   const productGrid = document.getElementById('productGrid')
   const cartBtn = document.getElementById('cartBtn')
@@ -431,7 +864,6 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   }
   )
   qClose.addEventListener('click', ()=> quickView.style.display='none')
-
   cartBtn.addEventListener('click', openCart)
   closeCart.addEventListener('click', closeCartPanel)
   checkoutBtn.addEventListener('click', ()=>{
@@ -442,7 +874,6 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
     renderCart()
     closeCartPanel()
   })
-
   // filter buttons
   Array.from(document.querySelectorAll('.filter-btn')).forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -526,6 +957,4 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
   })()
   </script>
 </body>
-
 </html>
-
