@@ -935,7 +935,18 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
       const card = document.createElement('div')
       card.className = 'card'
       card.setAttribute('data-cat', p.cat)
+      if(p.img && /pouch|tdb/i.test(p.img)) card.classList.add('pouch')
       card.innerHTML = `\n      <img src="${p.img}" alt="${p.title}" class="prod-img">\n      <div class="title">${p.title}</div>\n      <div class="price">${formatVND(p.price)}₫</div>\n      <div style="margin-top:auto;display:flex;gap:8px"><button class="btn primary" data-id="${p.id}">Thêm vào giỏ</button><button class="btn secondary qview" data-id="${p.id}">Xem nhanh</button></div>\n    `
+      // Add image error handler like in renderProducts
+      const imgEl = card.querySelector('img')
+      if(imgEl){
+        imgEl.onerror = function(){
+          try{
+            // if expected raster/webp missing, fall back to an SVG placeholder with same basename
+            this.src = this.src.replace(/\.(jpe?g|png|webp)$/i, '.svg')
+          }catch(e){}
+        }
+      }
       productGrid.appendChild(card)
     })
   }
@@ -1067,4 +1078,5 @@ body{font-family: 'Noto Sans', 'Segoe UI', Tahoma, Verdana, sans-serif;margin:0;
 </body>
 
 </html>
+
 
